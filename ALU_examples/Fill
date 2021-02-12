@@ -1,0 +1,64 @@
+@SCREEN
+D = A
+@i
+M = D
+@i
+A = M
+
+(LOOP)
+@KBD		//keyboard regiser
+D=M
+
+@BLACK
+D;JGT	//if KBD > 0 jmp to black
+
+@WHITE
+D;JEQ	//if KBD == 0 jmp to white
+
+//================================== key pressed =============================================
+(BLACK)
+@i
+A = M
+M = -1		//set screen pixels mapped to SCREEN to all black
+D = A
+
+//========check if Screen is fully black
+//@16896
+//D = A - D
+
+//@LOOP
+//D;JEQ	    //jump to top of loop without incrementing SCREEN if Screen already black
+//======================================
+
+@32
+D = A
+
+@i
+M = M + D	//inc SCREEN address by 16
+
+@LOOP
+0;JMP           //return to top of loop
+//=============================================================================================
+
+//===============================no keys pressed===============================================
+(WHITE)
+@i
+A = M
+M = 0
+D = A
+//check to see if the entire screen in white
+@16384
+D = A - D
+
+@LOOP
+D;JEQ
+//============================================
+
+@32
+D = A
+@i
+M = M - D       //reduce SCREEN address by 16
+
+@LOOP
+0;JMP          //return to top of loop
+//==============================================================================================
