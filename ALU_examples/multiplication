@@ -1,0 +1,31 @@
+//multiplies R0 by R1 and returns the sum to R2
+
+@i     
+M = 0		         //set i = 0
+
+@R2
+M = 0 		        //sets R2 = 0
+
+(LOOP)
+@i	                //load i to A
+D = M   	        //D = i 
+
+@R1	                //load R1, to A
+D = M - D 	        //D = R1 - i  
+
+@END	                //loads end lable into A
+D;JEQ   	        //jump to end if D == 0
+
+@R0	                //set A = to R0 the multiplier
+D = M   	        // set D = R0
+
+@R2
+M = D + M 		//R2 = R0 + R2
+
+@i
+M = M + 1   		//increment i by 1
+
+@LOOP
+0 ; JMP
+
+(END)
